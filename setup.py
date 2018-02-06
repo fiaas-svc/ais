@@ -44,6 +44,7 @@ setup(
     setup_requires=['pytest-runner', 'wheel', 'setuptools_scm'],
     extras_require={
         "dev": TESTS_REQ + CODE_QUALITY_REQ,
+        "ci": ["tox==2.9.1", "tox-travis"],
     },
     tests_require=TESTS_REQ,
     entry_points={"console_scripts": ['ais=ais:main']},
