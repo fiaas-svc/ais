@@ -1,6 +1,7 @@
 from flask import Flask, request, make_response, abort
 import json
 import boto3
+from datetime import datetime
 
 app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
@@ -14,6 +15,8 @@ def hello_world():
 @app.route('/<namespace>/<tag>', methods=['POST'])
 def tag(namespace, tag):
     data = request.get_json(force=True)
+    if 'updated' not in data:
+        data['updated'] = datetime.now().isoformat()
     _verify(data)
     _write_to_s3(namespace, tag, data)
     return make_response('', 200)
