@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, abort
 import json
 import boto3
 
@@ -14,6 +14,7 @@ def hello_world():
 @app.route('/<namespace>/<tag>', methods=['POST'])
 def tag(namespace, tag):
     data = request.get_json(force=True)
+    _verify(data)
     _write_to_s3(namespace, tag, data)
     return make_response('', 200)
 
@@ -22,6 +23,12 @@ def _write_to_s3(namespace, tag, data):
     s3 = boto3.resource('s3')
     s3object = s3.Object(app.config.get('S3BUCKET'), '%s/%s.json' % (namespace, tag))
     s3object.put(Body=json.dumps(data, indent=4))
+
+
+def _verify(data):
+    for k in ['updated', 'image', 'build', 'commit']:
+        if k not in data:
+            abort(400, '%s must be specified' % k)
 
 
 @app.route('/_/health')
