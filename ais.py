@@ -7,11 +7,6 @@ app = Flask(__name__)
 app.config.from_pyfile('config.cfg')
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
-
-
 @app.route('/<namespace>/<tag>', methods=['POST'])
 def tag(namespace, tag):
     data = request.get_json(force=True)
