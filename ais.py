@@ -7,19 +7,19 @@ import os
 app = Flask(__name__)
 
 
-@app.route('/<namespace>/<tag>', methods=['POST'])
-def tag(namespace, tag):
+@app.route('/<channel>/<tag>', methods=['POST'])
+def tag(channel, tag):
     data = request.get_json(force=True)
     if 'updated' not in data:
         data['updated'] = datetime.now().isoformat()
     _verify(data)
-    _write_to_s3(namespace, tag, data)
+    _write_to_s3(channel, tag, data)
     return make_response('', 200)
 
 
-def _write_to_s3(namespace, tag, data):
+def _write_to_s3(channel, tag, data):
     s3 = boto3.resource('s3')
-    s3object = s3.Object(os.environ['S3BUCKET'], '%s/%s.json' % (namespace, tag))
+    s3object = s3.Object(os.environ['S3BUCKET'], '%s/%s.json' % (channel, tag))
     s3object.put(Body=json.dumps(data, indent=4))
 
 

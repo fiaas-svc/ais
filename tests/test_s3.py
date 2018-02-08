@@ -26,8 +26,8 @@ class S3TestCase(TestCase):
         data = dict(zip(keys, keys))
         data['updated'] = datetime.now().isoformat()
 
-        self.client.post('/namespace/tag', data=json.dumps(data))
+        self.client.post('/channel/tag', data=json.dumps(data))
 
-        body = json.load(self.conn.Object(self.mybucket, 'namespace/tag.json').get()['Body'])
+        body = json.load(self.conn.Object(self.mybucket, 'channel/tag.json').get()['Body'])
 
         assert body == data
