@@ -2,6 +2,7 @@ from flask import Flask, request, make_response, abort
 import json
 import boto3
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 
@@ -18,7 +19,7 @@ def tag(namespace, tag):
 
 def _write_to_s3(namespace, tag, data):
     s3 = boto3.resource('s3')
-    s3object = s3.Object(app.config.get('S3BUCKET'), '%s/%s.json' % (namespace, tag))
+    s3object = s3.Object(os.environ['S3BUCKET'], '%s/%s.json' % (namespace, tag))
     s3object.put(Body=json.dumps(data, indent=4))
 
 
@@ -34,7 +35,6 @@ def health():
 
 
 def main():
-    app.config.from_pyfile('config.cfg')
     app.run()
 
 
