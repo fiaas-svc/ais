@@ -18,6 +18,7 @@ def version():
 GENERIC_REQ = [
     "Flask==0.12.2",
     "boto3==1.4.4",
+    "moto==1.2.0",
 ]
 
 CODE_QUALITY_REQ = [

@@ -4,8 +4,6 @@ import boto3
 from datetime import datetime
 
 app = Flask(__name__)
-app.config.from_pyfile('config.cfg')
-
 
 @app.route('/<namespace>/<tag>', methods=['POST'])
 def tag(namespace, tag):
@@ -35,6 +33,7 @@ def health():
 
 
 def main():
+    app.config.from_pyfile('config.cfg')
     app.run()
 
 
