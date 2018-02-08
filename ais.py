@@ -5,6 +5,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+
 @app.route('/<namespace>/<tag>', methods=['POST'])
 def tag(namespace, tag):
     data = request.get_json(force=True)
