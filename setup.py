@@ -10,7 +10,7 @@ def version():
     try:
         git_sha = check_output(["git", "describe", "--always", "--dirty=dirty", "--match=NOTHING"]).strip().decode()
         return "{}+{}".format(date_string, git_sha)
-    except CalledProcessError as e:
+    except (CalledProcessError, OSError) as e:
         warn("Error calling git: {}".format(e))
     return date_string
 
