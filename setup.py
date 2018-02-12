@@ -18,7 +18,6 @@ def version():
 GENERIC_REQ = [
     "Flask==0.12.2",
     "boto3==1.5.24",
-    "moto==1.2.0",
 ]
 
 CODE_QUALITY_REQ = [
@@ -31,6 +30,7 @@ TESTS_REQ = [
     'pytest-cov',
     'pytest-helpers-namespace',
     'pytest >= 3.0',
+    "moto==1.2.0",
 ]
 
 setup(
@@ -46,7 +46,7 @@ setup(
     setup_requires=['pytest-runner', 'wheel', 'setuptools_scm'],
     extras_require={
         "dev": TESTS_REQ + CODE_QUALITY_REQ,
-        "ci": ["tox==2.9.1", "tox-travis"],
+        "ci": ["tox==2.9.1", "tox-travis"] + TESTS_REQ + CODE_QUALITY_REQ,
     },
     tests_require=TESTS_REQ,
     entry_points={"console_scripts": ['ais=ais:main']},
