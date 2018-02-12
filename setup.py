@@ -18,7 +18,6 @@ def version():
 GENERIC_REQ = [
     "Flask==0.12.2",
     "boto3==1.5.24",
-    "moto==1.2.0",
 ]
 
 CODE_QUALITY_REQ = [
@@ -31,6 +30,7 @@ TESTS_REQ = [
     'pytest-cov',
     'pytest-helpers-namespace',
     'pytest >= 3.0',
+    "moto==1.2.0",
 ]
 
 setup(
