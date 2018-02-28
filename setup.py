@@ -25,13 +25,18 @@ CODE_QUALITY_REQ = [
 ]
 
 TESTS_REQ = [
-    'tox==2.9.1',
     'pytest-html',
     'pytest-cov',
     'pytest-helpers-namespace',
     'pytest >= 3.0',
     "moto==1.2.0",
 ]
+
+CI_REQ = [
+    "tox==2.9.1",
+    "tox-travis",
+]
+
 
 setup(
     name="fiaas-ais",
@@ -45,8 +50,9 @@ setup(
     install_requires=GENERIC_REQ,
     setup_requires=['pytest-runner', 'wheel', 'setuptools_scm'],
     extras_require={
-        "dev": TESTS_REQ + CODE_QUALITY_REQ,
-        "ci": ["tox==2.9.1", "tox-travis"],
+        "dev": TESTS_REQ + CODE_QUALITY_REQ + CI_REQ,
+        "ci": CI_REQ,
+        "codacy": ["codacy-coverage"],
     },
     tests_require=TESTS_REQ,
     entry_points={"console_scripts": ['ais=ais:main']},
