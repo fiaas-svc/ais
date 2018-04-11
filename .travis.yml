@@ -1,10 +1,10 @@
 language: python
 python:
-  - '3.6'
+- '3.6'
 cache: pip
-install:
-  - pip install -e .[ci]
 env:
-  - COVERAGE=""
-  - COVERAGE="-e coverage"
-script: tox ${COVERAGE}
+install:
+- pip install -e .[ci]
+script:
+  - tox
+after_success: tox -e coverage
