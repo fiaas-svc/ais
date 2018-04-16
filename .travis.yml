@@ -1,18 +1,18 @@
 language: python
 python:
-- '3.6'
+  - '3.6'
 sudo: required
 services:
-- docker
+  - docker
 cache: pip
 env:
   global:
-  - DOCKER_USERNAME=captainfiaas
-  - secure: rqpEgRnrN4TY9mr+9feZ74afJ015FEyRQi/sm50wqrBVJezPsNnH2mkkxAUSRABAAOhAH4r9qSCf6V3HAT5lTvyxuxlsskmrLj4jXHRNhT6g+ZV3aIekbX+og4i8V2Ap5kt2BQ2NHeOQLGI+LEYU4reaO1fishTssYPj0bBR0KdOyfj+y1+ilpYUgfRdDsX/fWisfdaYjm/HLUJ1SIz/poTSLhEGpk1JAvpe3YlUaUoDs/GfdOnOAyH5PWlwH8xU31WjoHrDVR6gRlbpk73Y65hbBMFTruy1011C7kWGFbdCG25MZbW3a54ZYGXFaiyvk4r3HlIOsWHSA+1kzqW8rrbjT67PqCp/rJMe6fXoNARvvRhrmC5EsO83L1xGNgwTR3/WvO6l+z/NTXHkQhGRtCXXr6kMXr4XbL7FJhJF6nQllIRNAcnbnW0cjOQQCvTJiLuOIoDZaZQyESmVvbO8dDIavd3rQDxhfXzfA/dHTzOv2dRtplRTYkOtSmdBwtKRTLrkpWIjGMl1nwOWXe8EeUBYY0mLfL9kVWUvTOAS1iLVkLBK+TIyHp3R4o1BIVcTFVbWsUByAjnrHda6FIjdMi2WXIo+eFnlLC/Zy5Dtj6NmVFq2+YjRQlrXqimqacex44QTOOfVBWlDPBIcRBYHTag718knX6J+z4hR0Zv1dO0= # DOCKER_PASSWORD todo replace with correct encrypted secret
+    - DOCKER_USERNAME=captainfiaas
+    - secure: bjTCM9RLCrzSl3m367TJFincEf9mBF04RnZdSkKhqr1dUEYX6YSu/ckiLDWfxpeu5zjoxbFiYZp4gBgGCncQVOPluHRAzGz9GXqvbiEKyN6PMObZQc8MzskGFU5eBTytrN+GuMmtsCwfvO72wsBa8Xh9jIipH//AkFmN8s68wOxkQssEnSHdLjLnObjjo30njKNR1yz3/RiLgC64VPw4hXbIGHYCNZbfX3udzSYVrkCGCTj0JZcYKVjC6lkI/HWwr5zbp3wp0UjN2Uj+eWXZM9sFdKVegcG32RlR+994FhUniw6oWNe6w2WN/DMLIkk9MqVW87myq01F1ut22ZhKHExYRdwnasa+R4KcKa4AsrGoRvWnse3cgGAcekWRokGrY8TkdDww508bKaAlwLh5jJN3qfZcfocAWsI9gqEt6DQMEJ7/YH1nQLA7AOBmkvu7jegL51uRgv4EgiI9JYgkXON4Rj3Ma7IG8EqLXJ+DaM6TppGYa6U5bUmPuLR+EPb9RjiGqBX8Dx9RY1eiaD6JiIW1B6/jDyhDoFKJNmvbeO+u7tjyr1c+tJFHrMPFZmIMZRyMud5jPPH4pHhewCDgwnb/kiZQT3TalPNBsN1B6HEQbAc9ZF3FDkLZYoNzcsh3P9kCFzQn+YTk70siB3Ko2Xnl1/BY9WvDcvE6Co/WBzU= # DOCKER_PASSWORD
 before_install:
-- sudo rm -f /etc/boto.cfg # Fix to avoid problems importing boto
+  - sudo rm -f /etc/boto.cfg # Fix to avoid problems importing boto
 install:
-- pip install -e .[ci]
+  - pip install -e .[ci]
 script:
   - tox
   - bin/docker_build
