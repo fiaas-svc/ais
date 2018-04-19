@@ -55,5 +55,5 @@ setup(
         "codacy": ["codacy-coverage"],
     },
     tests_require=TESTS_REQ,
-    entry_points={"console_scripts": ['ais=ais:main']},
+    entry_points={"console_scripts": ['ais=fiaas_ais:main']},
 )
