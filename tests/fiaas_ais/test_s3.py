@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8
 
-import ais
+from fiaas_ais import app
 from moto import mock_s3
 from unittest import TestCase
 from datetime import datetime
@@ -18,8 +18,8 @@ class S3TestCase(TestCase):
         self.conn = boto3.resource('s3')
         self.conn.create_bucket(Bucket=self.mybucket)
 
-        self.app = ais.app
-        self.client = ais.app.test_client()
+        self.app = app
+        self.client = app.test_client()
 
     def test_persist_tag_to_s3(self):
         keys = ['updated', 'image', 'commit', 'build']
