@@ -21,6 +21,7 @@ def _write_to_s3(channel, tag, data):
     s3 = boto3.resource('s3')
     s3object = s3.Object(os.environ['S3BUCKET'], '%s/%s.json' % (channel, tag))
     s3object.put(Body=json.dumps(data, indent=4))
+    s3object.Acl().put(ACL='public-read')
 
 
 def _verify(data):
