@@ -7,14 +7,12 @@ from unittest import TestCase
 from datetime import datetime
 import json
 import boto3
-import os
 
 
 @mock_s3
 class S3TestCase(TestCase):
     def setUp(self):
-        self.mybucket = 'mybucket'
-        os.environ['S3BUCKET'] = self.mybucket
+        self.mybucket = 'fiaas-release.delivery-pro.schibsted.io'
         self.conn = boto3.resource('s3')
         self.conn.create_bucket(Bucket=self.mybucket)
 
