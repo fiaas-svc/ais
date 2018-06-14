@@ -2,7 +2,6 @@ from flask import Flask, request, make_response, abort
 import json
 import boto3
 from datetime import datetime
-import os
 
 app = Flask(__name__)
 
@@ -19,7 +18,7 @@ def tag(channel, tag):
 
 def _write_to_s3(channel, tag, data):
     s3 = boto3.resource('s3')
-    s3object = s3.Object(os.environ['S3BUCKET'], '%s/%s.json' % (channel, tag))
+    s3object = s3.Object('fiaas-release.delivery-pro.schibsted.io', '%s/%s.json' % (channel, tag))
     s3object.put(Body=json.dumps(data, indent=4))
     s3object.Acl().put(ACL='public-read')
 
