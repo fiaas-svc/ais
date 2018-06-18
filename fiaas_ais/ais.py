@@ -1,9 +1,12 @@
 from flask import Flask, request, make_response, abort
+from flask_talisman import Talisman, DENY
 import json
 import boto3
 from datetime import datetime
 
 app = Flask(__name__)
+# TODO: These options are like this because we haven't set up TLS
+Talisman(app, frame_options=DENY, force_https=False, strict_transport_security=False)
 
 
 @app.route('/<channel>/<tag>', methods=['POST'])
