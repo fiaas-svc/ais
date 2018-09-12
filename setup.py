@@ -16,7 +16,7 @@ def version():
 
 
 GENERIC_REQ = [
-    "Flask==0.12.2",
+    "Flask==0.12.4",
     "flask-talisman==0.5.1",
     "boto3==1.5.24",
 ]
