@@ -3,13 +3,20 @@ from flask_talisman import Talisman, DENY
 import json
 import boto3
 from datetime import datetime
+from prometheus_client import generate_latest, CONTENT_TYPE_LATEST, Histogram
 
 app = Flask(__name__)
 # TODO: These options are like this because we haven't set up TLS
 Talisman(app, frame_options=DENY, force_https=False, strict_transport_security=False)
 
+request_histogram = Histogram("web_request_latency", "Request latency in seconds", ["endpoint"])
+metrics_histogram = request_histogram.labels("metrics")
+tag_release_histogram = request_histogram.labels("release-channel-tag")
+health_histogram = request_histogram.labels("health")
+
 
 @app.route('/<channel>/<tag>', methods=['POST'])
+@tag_release_histogram.time()
 def tag(channel, tag):
     data = request.get_json(force=True)
     if 'updated' not in data:
@@ -33,8 +40,17 @@ def _verify(data):
 
 
 @app.route('/_/health')
+@health_histogram.time()
 def health():
     return make_response('', 200)
+
+
+@app.route("/_/metrics")
+@metrics_histogram.time()
+def metrics():
+    resp = make_response(generate_latest())
+    resp.mimetype = CONTENT_TYPE_LATEST
+    return resp
 
 
 def main():
