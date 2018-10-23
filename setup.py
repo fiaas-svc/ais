@@ -20,6 +20,7 @@ GENERIC_REQ = [
     "flask-talisman==0.5.1",
     "boto3==1.5.24",
     "prometheus_client == 0.3.1",
+    "gevent == 1.3.7",
 ]
 
 CODE_QUALITY_REQ = [
