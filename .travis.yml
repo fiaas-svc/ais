@@ -19,7 +19,7 @@ script:
 after_success: tox -e coverage
 deploy:
   provider: script
-  script: bin/docker_push
+  script: bin/docker_push && bin/tag_release
   skip_cleanup: true
   on:
     branch: master
